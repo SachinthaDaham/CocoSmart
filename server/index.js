@@ -3,6 +3,7 @@ const cors = require('cors')
 const dotenv = require('dotenv')
 const mongoose = require('mongoose')
 const Contact = require('./models/Contact')
+const { normalizeContactPayload } = require('./utils/textProcessing')
 
 dotenv.config()
 
@@ -32,7 +33,7 @@ app.get('/api/health', (_, res) => {
 
 app.post('/api/contact', async (req, res) => {
   try {
-    const { name, email, message } = req.body
+    const { name, email, message } = normalizeContactPayload(req.body)
 
     if (!name || !email || !message) {
       return res.status(400).json({ message: 'All fields are required.' })
