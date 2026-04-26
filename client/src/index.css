@@ -14,6 +14,10 @@
   box-sizing: border-box;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 html,
 body,
 #root {
@@ -22,7 +26,7 @@ body,
 }
 
 body {
-  font-family: 'Avenir Next', 'Nunito Sans', 'Segoe UI', sans-serif;
+  font-family: 'Outfit', 'Segoe UI', sans-serif;
   color: var(--ink-900);
   background:
     radial-gradient(circle at 12% 0%, #fffef7 0%, transparent 38%),
