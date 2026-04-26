@@ -1,6 +1,14 @@
 import { useEffect, useMemo, useState } from 'react'
 import axios from 'axios'
 import './App.css'
+import imashaPhoto from './assets/Imasha.jpeg'
+import inoshPhoto from './assets/Inosh.jpeg'
+import tharushiPhoto from './assets/Tharushi.png'
+import dahamPhoto from './assets/Daham.jpeg'
+import udithaPhoto from './assets/uditha.jpeg'
+import dinithiPhoto from './assets/dinithi.png'
+import roshanPhoto from './assets/roshan.png'
+import logoPhoto from './assets/logo.jpeg'
 
 function App() {
   const [formData, setFormData] = useState({
@@ -90,51 +98,57 @@ function App() {
 
   const team = [
     {
-      name: 'Dr. Janaka Wijekoon',
+      name: 'Mr. Uditha Dharmakeerthi',
       role: 'Supervisor',
       org: 'Sri Lanka Institute of Information Technology',
-      photo: '/team/dr-janaka-wijekoon.jpg',
+      photo: udithaPhoto,
+      photoPosition: 'center 16%',
     },
     {
-      name: 'Ms. Dilani Lunugalage',
+      name: 'Ms. Dinithi Pandithage',
       role: 'Co-Supervisor',
       org: 'Sri Lanka Institute of Information Technology',
-      photo: '/team/ms-dilani-lunugalage.jpg',
+      photo: dinithiPhoto,
+      photoPosition: 'center 16%',
     },
     {
-      name: 'Dr. Nayanie S Aratchige',
+      name: 'Dr. Roshan De Silva',
       role: 'External Supervisor',
       org: 'Coconut Research Institute of Sri Lanka',
-      photo: '/team/dr-nayanie-aratchige.jpg',
+      photo: roshanPhoto,
+      photoPosition: 'center 16%',
     },
     {
-      name: 'Team Member 01',
-      role: 'Researcher',
+      name: ' W.K.K.I Prasangi',
+      role: 'Group Leader',
       org: 'Undergraduate Researcher',
-      photo: '/team/member-01.jpg',
+      photo: imashaPhoto,
     },
     {
-      name: 'Team Member 02',
-      role: 'Researcher',
+      name: 'W.P.I Niwantha',
+      role: 'Team Member',
       org: 'Undergraduate Researcher',
-      photo: '/team/member-02.jpg',
+      photo: inoshPhoto,
+      photoPosition: 'center 18%',
     },
     {
-      name: 'Team Member 03',
-      role: 'Researcher',
+      name: 'W.T.T.S Fernando',
+      role: 'Team Member',
       org: 'Undergraduate Researcher',
-      photo: '/team/member-03.jpg',
+      photo: tharushiPhoto,
+      photoPosition: 'center 18%',
     },
     {
-      name: 'Team Member 04',
-      role: 'Researcher',
+      name: 'T.W.K.S.D Sankalpa',
+      role: 'Team Member',
       org: 'Undergraduate Researcher',
-      photo: '/team/member-04.jpg',
+      photo: dahamPhoto,
+      photoPosition: 'center 18%',
     },
   ]
 
   const supervisors = team.filter((member) => member.role.toLowerCase().includes('supervisor'))
-  const studentMembers = team.filter((member) => member.role === 'Researcher')
+  const studentMembers = team.filter((member) => !member.role.toLowerCase().includes('supervisor'))
 
   const getFallbackAvatar = (name) =>
     `https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&background=dce9b2&color=1d2d1f&size=256&bold=true`
@@ -170,7 +184,10 @@ function App() {
   return (
     <>
       <nav className={`sticky-nav${scrolled ? ' sticky-nav--visible' : ''}`} aria-label="Sticky">
-        <p className="brand sticky-brand">CocoSmart Research</p>
+        <div className="brand sticky-brand">
+          <img src={logoPhoto} alt="CocoSmart logo" className="brand-logo" loading="lazy" />
+          <span>CocoSmart Research</span>
+        </div>
         <div className="nav-links sticky-nav-links">
           {sections.map((section) => (
             <a key={section.id} href={`#${section.id}`}>{section.title}</a>
@@ -187,7 +204,10 @@ function App() {
         </div>
         <div className="hero-inner">
           <nav className="top-nav" aria-label="Main">
-            <p className="brand">CocoSmart Research</p>
+            <div className="brand">
+              <img src={logoPhoto} alt="CocoSmart logo" className="brand-logo" loading="lazy" />
+              <span>CocoSmart Research</span>
+            </div>
             <button
               className={`hamburger${menuOpen ? ' open' : ''}`}
               onClick={() => setMenuOpen((v) => !v)}
@@ -399,14 +419,12 @@ function App() {
           <p className="section-kicker">Tools powering model training and deployment</p>
           <div className="tech-grid">
             {[
-              { name: 'MongoDB',         category: 'Database',  logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mongodb/mongodb-original.svg' },
-              { name: 'Express.js',      category: 'Backend',   logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/express/express-original.svg', dark: true },
-              { name: 'React',           category: 'Frontend',  logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original.svg' },
-              { name: 'Node.js',         category: 'Backend',   logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nodejs/nodejs-original.svg' },
-              { name: 'TensorFlow',      category: 'AI / ML',   logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/tensorflow/tensorflow-original.svg' },
-              { name: 'Keras',           category: 'AI / ML',   logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/keras/keras-original.svg' },
-              { name: 'YOLOv5',          category: 'AI / ML',   logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg' },
-              { name: 'Google Maps API', category: 'APIs',      logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/googlecloud/googlecloud-original.svg' },
+              { name: 'Flutter', category: 'Mobile App', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/flutter/flutter-original.svg' },
+              { name: 'Firebase (Firestore and Realtime)', category: 'Cloud Database', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/firebase/firebase-plain.svg' },
+              { name: 'Google Cloud Services', category: 'Cloud Platform', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/googlecloud/googlecloud-original.svg' },
+              { name: 'Keras', category: 'AI / ML', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/keras/keras-original.svg' },
+              { name: 'Arduino', category: 'IoT Hardware', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/arduino/arduino-original.svg' },
+              { name: 'Python', category: 'Programming Language', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg' },
             ].map((tech) => (
               <article key={tech.name} className="tech-card">
                 <div className={`tech-logo-wrap${tech.dark ? ' tech-logo-dark' : ''}`}>
@@ -468,6 +486,7 @@ function App() {
                     src={member.photo}
                     alt={`${member.name} profile`}
                     loading="lazy"
+                    style={{ objectPosition: member.photoPosition || 'center 16%' }}
                     onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = getFallbackAvatar(member.name) }}
                   />
                 </div>
@@ -492,6 +511,7 @@ function App() {
                     src={member.photo}
                     alt={`${member.name} profile`}
                     loading="lazy"
+                    style={{ objectPosition: member.photoPosition || 'center' }}
                     onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = getFallbackAvatar(member.name) }}
                   />
                 </div>
@@ -631,7 +651,10 @@ function App() {
         <div className="footer-inner">
         <div className="footer-main">
           <div className="footer-brand">
-            <p className="footer-logo">CocoSmart</p>
+            <div className="footer-logo-wrap">
+              <img src={logoPhoto} alt="CocoSmart logo" className="footer-brand-logo" loading="lazy" />
+              <p className="footer-logo">CocoSmart</p>
+            </div>
             <p className="footer-tagline">AI and IoT-powered advisory system for smarter coconut farming in Sri Lanka.</p>
             <p className="footer-email">✉ researchcoco@gmail.com</p>
           </div>

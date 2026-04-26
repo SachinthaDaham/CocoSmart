@@ -82,6 +82,9 @@ body{
 }
 
 .brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
   font-size: 1.05rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -90,6 +93,24 @@ body{
   background: rgba(5, 27, 16, 0.35);
   border-radius: 999px;
   border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.brand-logo {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center;
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+  flex-shrink: 0;
+}
+
+.sticky-brand .brand-logo {
+  width: 26px;
+  height: 26px;
+  border-color: rgba(34, 58, 44, 0.2);
+  box-shadow: 0 2px 8px rgba(34, 58, 44, 0.15);
 }
 
 .nav-links {
@@ -313,8 +334,8 @@ main {
 }
 
 .supervisor-photo-wrap {
-  width: 96px;
-  height: 96px;
+  width: 108px;
+  height: 108px;
   border-radius: 50%;
   overflow: hidden;
   border: 3px solid #2d6c49;
@@ -327,6 +348,7 @@ main {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center 16%;
 }
 
 .supervisor-info {
@@ -401,8 +423,8 @@ main {
 }
 
 .student-photo-wrap {
-  width: 72px;
-  height: 72px;
+  width: 84px;
+  height: 84px;
   border-radius: 50%;
   overflow: hidden;
   border: 2px solid var(--line-soft);
@@ -414,6 +436,7 @@ main {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center 16%;
 }
 
 .student-card h3 {
@@ -1364,7 +1387,23 @@ footer {
   font-weight: 800;
   color: #fff;
   letter-spacing: 0.04em;
+  margin-bottom: 0;
+}
+
+.footer-logo-wrap {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
   margin-bottom: 10px;
+}
+
+.footer-brand-logo {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.25);
 }
 
 .footer-tagline {

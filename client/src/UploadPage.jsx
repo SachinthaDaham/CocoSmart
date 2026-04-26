@@ -54,7 +54,12 @@ export default function UploadPage() {
       setFile(null)
       if (fileRef.current) fileRef.current.value = ''
     } catch (err) {
-      setFeedback({ text: err.response?.data?.message || 'Upload failed.', error: true })
+      const status = err.response?.status
+      const apiMessage = err.response?.data?.message
+      const friendlyMessage = status === 413
+        ? 'File is too large. Please upload a file smaller than 50 MB.'
+        : apiMessage || 'Upload failed. Please check password, title, and file.'
+      setFeedback({ text: friendlyMessage, error: true })
     } finally {
       setUploading(false)
     }
@@ -86,7 +91,7 @@ export default function UploadPage() {
       <div className="upload-card">
         <a href="/" className="back-link">← Back to site</a>
         <h1>Research Documents</h1>
-        <p className="upload-subtitle">Upload files here — they appear on the main page for visitors to download.</p>
+        <p className="upload-subtitle">Upload files here — they appear on the main page for visitors to download. Max size: 50 MB.</p>
 
         <form onSubmit={handleSubmit} className="upload-form-page">
           <label>

@@ -14,7 +14,8 @@ dotenv.config()
 const app = express()
 const PORT = process.env.PORT || 5050
 const MONGO_URI = process.env.MONGO_URI
-const UPLOAD_PASSWORD = process.env.UPLOAD_PASSWORD
+const UPLOAD_PASSWORD = process.env.UPLOAD_PASSWORD?.trim()
+const MAX_UPLOAD_SIZE_MB = Number(process.env.MAX_UPLOAD_SIZE_MB || 50)
 
 app.use(cors())
 app.use(express.json())
@@ -27,6 +28,10 @@ if (MONGO_URI) {
   mongoose.connection.on('error', (error) => console.error('MongoDB error:', error.message))
 } else {
   console.warn('MONGO_URI not provided.')
+}
+
+if (!UPLOAD_PASSWORD) {
+  console.warn('UPLOAD_PASSWORD not provided. Document upload/delete endpoints are disabled until it is set in server/.env.')
 }
 
 // Uploads directory
@@ -43,7 +48,18 @@ const storage = multer.diskStorage({
     cb(null, `${unique}-${file.originalname}`)
   },
 })
-const upload = multer({ storage, limits: { fileSize: 20 * 1024 * 1024 } })
+const upload = multer({
+  storage,
+  limits: { fileSize: MAX_UPLOAD_SIZE_MB * 1024 * 1024 },
+})
+
+const runSingleFileUpload = (req, res) =>
+  new Promise((resolve, reject) => {
+    upload.single('file')(req, res, (err) => {
+      if (err) return reject(err)
+      return resolve()
+    })
+  })
 
 const requireDb = (res) => {
   if (mongoose.connection.readyState !== 1) {
@@ -86,16 +102,25 @@ app.post('/api/contact', async (req, res) => {
 
 // ── Documents ─────────────────────────────────────────────────────────────────
 
-app.post('/api/documents/upload', upload.single('file'), async (req, res) => {
+app.post('/api/documents/upload', async (req, res) => {
   try {
-    const { title, description, password } = req.body
+    await runSingleFileUpload(req, res)
 
-    if (password !== UPLOAD_PASSWORD) {
+    const { title, description, password } = req.body
+    const normalizedTitle = String(title || '').trim()
+    const providedPassword = String(password || '').trim()
+
+    if (!UPLOAD_PASSWORD) {
+      if (req.file) fs.unlinkSync(req.file.path)
+      return res.status(500).json({ message: 'Server upload password is not configured.' })
+    }
+
+    if (providedPassword !== UPLOAD_PASSWORD) {
       if (req.file) fs.unlinkSync(req.file.path)
       return res.status(401).json({ message: 'Invalid password.' })
     }
 
-    if (!title || !req.file) {
+    if (!normalizedTitle || !req.file) {
       if (req.file) fs.unlinkSync(req.file.path)
       return res.status(400).json({ message: 'Title and file are required.' })
     }
@@ -106,7 +131,7 @@ app.post('/api/documents/upload', upload.single('file'), async (req, res) => {
     }
 
     const doc = await Document.create({
-      title,
+      title: normalizedTitle,
       description: description || '',
       originalName: req.file.originalname,
       storedName: req.file.filename,
@@ -115,7 +140,13 @@ app.post('/api/documents/upload', upload.single('file'), async (req, res) => {
     })
 
     return res.status(201).json({ message: 'Document uploaded successfully.', document: doc })
-  } catch {
+  } catch (error) {
+    if (error instanceof multer.MulterError) {
+      if (error.code === 'LIMIT_FILE_SIZE') {
+        return res.status(413).json({ message: `File is too large. Maximum size is ${MAX_UPLOAD_SIZE_MB} MB.` })
+      }
+      return res.status(400).json({ message: `Upload error: ${error.message}` })
+    }
     return res.status(500).json({ message: 'Failed to upload document.' })
   }
 })
@@ -151,8 +182,13 @@ app.get('/api/documents/:id/download', async (req, res) => {
 app.delete('/api/documents/:id', async (req, res) => {
   try {
     const { password } = req.body
+    const providedPassword = String(password || '').trim()
 
-    if (password !== UPLOAD_PASSWORD) {
+    if (!UPLOAD_PASSWORD) {
+      return res.status(500).json({ message: 'Server upload password is not configured.' })
+    }
+
+    if (providedPassword !== UPLOAD_PASSWORD) {
       return res.status(401).json({ message: 'Invalid password.' })
     }
 
