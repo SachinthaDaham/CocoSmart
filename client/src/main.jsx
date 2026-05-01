@@ -7,7 +7,7 @@ import UploadPage from './UploadPage.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <BrowserRouter>
+    <BrowserRouter basename="/CocoSmart">
       <Routes>
         <Route path="/" element={<App />} />
         <Route path="/upload" element={<UploadPage />} />
