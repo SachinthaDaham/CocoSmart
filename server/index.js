@@ -34,6 +34,17 @@ if (!UPLOAD_PASSWORD) {
   console.warn('UPLOAD_PASSWORD not provided. Document upload/delete endpoints are disabled until it is set in server/.env.')
 }
 
+// Whitelist of documents to display
+const DOCUMENT_WHITELIST = [
+  'Leaflet Design - Cocosmart.pdf',
+  'TAF_25-26J-202 .pdf',
+  'SMART AGRICULTURE PLATFORM FOR COCONUT PLANTATIONS IN SRI LANKA.pdf',
+  'Progress Presentation 1.pdf',
+  'Progress Presentation 2.pdf',
+  'Project proposal.zip',
+  'README.md',
+]
+
 // Uploads directory
 const uploadsDir = path.join(__dirname, 'uploads')
 if (!fs.existsSync(uploadsDir)) fs.mkdirSync(uploadsDir, { recursive: true })
@@ -153,9 +164,32 @@ app.post('/api/documents/upload', async (req, res) => {
 
 app.get('/api/documents', async (req, res) => {
   try {
-    if (!requireDb(res)) return
-    const docs = await Document.find().sort({ createdAt: -1 })
-    return res.json(docs)
+    // Try to get documents from database if available
+    if (mongoose.connection.readyState === 1) {
+      const docs = await Document.find().sort({ createdAt: -1 })
+      return res.json(docs)
+    }
+    
+    // Fallback: list files from uploads directory if database is not available
+    const files = fs.readdirSync(uploadsDir)
+    const documents = files
+      .map((filename) => {
+        const filePath = path.join(uploadsDir, filename)
+        const stats = fs.statSync(filePath)
+        const originalName = filename.replace(/^\d+-\d+-/, '') // Remove timestamp prefix
+        
+        return {
+          _id: filename,
+          storedName: filename,
+          originalName: originalName,
+          title: originalName.split('.')[0],
+          size: stats.size,
+          createdAt: stats.birthtime,
+        }
+      })
+      .filter((doc) => DOCUMENT_WHITELIST.includes(doc.originalName))
+    
+    return res.json(documents.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)))
   } catch {
     return res.status(500).json({ message: 'Failed to fetch documents.' })
   }
@@ -163,17 +197,28 @@ app.get('/api/documents', async (req, res) => {
 
 app.get('/api/documents/:id/download', async (req, res) => {
   try {
-    if (!requireDb(res)) return
+    let doc = null
+    let filePath = null
 
-    const doc = await Document.findById(req.params.id)
-    if (!doc) return res.status(404).json({ message: 'Document not found.' })
-
-    const filePath = path.join(uploadsDir, doc.storedName)
-    if (!fs.existsSync(filePath)) {
-      return res.status(404).json({ message: 'File not found on server.' })
+    // First try to find in database
+    if (mongoose.connection.readyState === 1) {
+      doc = await Document.findById(req.params.id)
+      if (doc) {
+        filePath = path.join(uploadsDir, doc.storedName)
+        if (fs.existsSync(filePath)) {
+          return res.download(filePath, doc.originalName)
+        }
+      }
     }
 
-    res.download(filePath, doc.originalName)
+    // Fallback: check if ID is a filename in uploads directory
+    filePath = path.join(uploadsDir, req.params.id)
+    if (fs.existsSync(filePath)) {
+      const originalName = req.params.id.replace(/^\d+-\d+-/, '')
+      return res.download(filePath, originalName)
+    }
+
+    return res.status(404).json({ message: 'Document not found.' })
   } catch {
     return res.status(500).json({ message: 'Failed to download document.' })
   }

@@ -10,6 +10,59 @@ import dinithiPhoto from './assets/dinithi.png'
 import roshanPhoto from './assets/roshan.png'
 import logoPhoto from './assets/logo.jpeg'
 
+// Documents from client assets folder
+const DOCUMENTS_DATA = [
+  {
+    _id: 'leaflet-design',
+    title: 'Leaflet Design',
+    originalName: 'Leaflet Design - Cocosmart.pdf',
+    size: 0,
+    url: '/CocoSmart/assets/Documents/Leaflet Design - Cocosmart.pdf',
+  },
+  {
+    _id: 'taf-252602-space',
+    title: 'TAF 25-26J-202',
+    originalName: 'TAF_25-26J-202 .pdf',
+    size: 0,
+    url: '/CocoSmart/assets/Documents/TAF_25-26J-202 .pdf',
+  },
+  {
+    _id: 'smart-agriculture',
+    title: 'Smart Agriculture Platform',
+    originalName: 'SMART AGRICULTURE PLATFORM FOR COCONUT PLANTATIONS IN SRI LANKA.pdf',
+    size: 0,
+    url: '/CocoSmart/assets/Documents/SMART AGRICULTURE PLATFORM FOR COCONUT PLANTATIONS IN SRI LANKA.pdf',
+  },
+  {
+    _id: 'progress-1',
+    title: 'Progress Presentation 1',
+    originalName: 'Progress Presentation 1.pdf',
+    size: 0,
+    url: '/CocoSmart/assets/Documents/Progress Presentation 1.pdf',
+  },
+  {
+    _id: 'progress-2',
+    title: 'Progress Presentation 2',
+    originalName: 'Progress Presentation 2.pdf',
+    size: 0,
+    url: '/CocoSmart/assets/Documents/Progress Presentation 2.pdf',
+  },
+  {
+    _id: 'project-proposal',
+    title: 'Project Proposal',
+    originalName: 'Project proposal.zip',
+    size: 0,
+    url: '/CocoSmart/assets/Documents/Project proposal.zip',
+  },
+  {
+    _id: 'readme',
+    title: 'README',
+    originalName: 'README_document.md',
+    size: 0,
+    url: '/CocoSmart/assets/Documents/README_document.md',
+  },
+]
+
 function App() {
   const [formData, setFormData] = useState({
     name: '',
@@ -35,10 +88,9 @@ function App() {
   )
 
   useEffect(() => {
-    axios.get(`${apiBaseUrl}/documents`)
-      .then((res) => setDocuments(res.data))
-      .catch(() => {})
-  }, [apiBaseUrl])
+    // Load documents from client assets
+    setDocuments(DOCUMENTS_DATA)
+  }, [])
 
   const sections = [
     { id: 'scope', title: 'Scope' },
@@ -196,12 +248,6 @@ function App() {
       </nav>
 
       <header className="hero" id="home">
-        <div className="hero-orbs" aria-hidden="true">
-          <span className="orb orb-1" />
-          <span className="orb orb-2" />
-          <span className="orb orb-3" />
-          <span className="orb orb-4" />
-        </div>
         <div className="hero-inner">
           <nav className="top-nav" aria-label="Main">
             <div className="brand">
@@ -562,25 +608,19 @@ function App() {
               <p>No documents uploaded yet.</p>
             </div>
           ) : (
-            <div className="documents-list">
+            <div className="tech-grid">
               {documents.map((doc) => {
                 const ext = doc.originalName.split('.').pop().toUpperCase()
                 return (
-                  <article key={doc._id} className="document-card">
+                  <article key={doc._id} className="tech-card">
                     <div className="doc-icon-wrap">
                       <span className="doc-ext">{ext}</span>
                     </div>
-                    <div className="document-info">
-                      <h3>{doc.title}</h3>
-                      {doc.description && <p className="doc-desc">{doc.description}</p>}
-                      <p className="doc-meta">
-                        {doc.originalName} &middot; {formatSize(doc.size)} &middot;{' '}
-                        {new Date(doc.createdAt).toLocaleDateString()}
-                      </p>
-                    </div>
+                    <p className="tech-name">{doc.title}</p>
+                    <span className="tech-category">{doc.originalName}</span>
                     <a
                       className="download-btn"
-                      href={`${apiBaseUrl.replace('/api', '')}/api/documents/${doc._id}/download`}
+                      href={doc.url}
                       download={doc.originalName}
                     >
                       ↓ Download

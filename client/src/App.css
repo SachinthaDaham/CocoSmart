@@ -1289,6 +1289,16 @@ main {
   letter-spacing: 0.05em;
 }
 
+/* For the special leaflet card: remove the green background but keep the file label text */
+.tech-card.no-orb .doc-icon-wrap {
+  background: transparent;
+  box-shadow: none;
+}
+
+.tech-card.no-orb .doc-ext {
+  color: #2d6c49;
+}
+
 .document-info {
   flex: 1;
   min-width: 0;

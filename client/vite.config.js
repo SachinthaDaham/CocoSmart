@@ -5,6 +5,7 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
   plugins: [react()],
   base: '/CocoSmart/',
+  assetsInclude: ['**/*.zip', '**/*.md', '**/*.pdf'],
   server: {
     proxy: {
       '/api': {
@@ -12,5 +13,8 @@ export default defineConfig({
         changeOrigin: true,
       },
     },
+  },
+  define: {
+    'process.env': JSON.stringify(process.env),
   },
 })
