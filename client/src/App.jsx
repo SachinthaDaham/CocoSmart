@@ -50,7 +50,7 @@ function App() {
     { id: 'tech', title: 'Tech Stack' },
     { id: 'timeline', title: 'Timeline' },
     { id: 'team', title: 'Team' },
-    { id: 'achievements', title: 'Achievements' },
+    // { id: 'achievements', title: 'Achievements' },
     { id: 'documents', title: 'Documents' },
     { id: 'contact', title: 'Contact' },
   ]
@@ -522,7 +522,7 @@ function App() {
           </div>
         </section>
 
-        <section id="achievements" className="content-section">
+        {/* <section id="achievements" className="content-section">
           <h2>Achievements</h2>
           <p className="section-kicker">Recognition for impact and innovation</p>
           <div className="achievements-grid">
@@ -550,7 +550,7 @@ function App() {
               </article>
             ))}
           </div>
-        </section>
+        </section> */}
 
         <section id="documents" className="content-section">
           <h2>Research Documents</h2>
