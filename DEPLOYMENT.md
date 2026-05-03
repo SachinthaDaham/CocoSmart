@@ -3,7 +3,9 @@
 ## Local Development
 
 ### Server Setup
+
 1. Create `server/.env` file:
+
    ```
    PORT=5050
    MONGO_URI=mongodb+srv://your_username:your_password@your_cluster/cocosmart?retryWrites=true&w=majority
@@ -11,6 +13,7 @@
    ```
 
 2. Install dependencies:
+
    ```bash
    npm install
    cd server && npm install
@@ -21,10 +24,12 @@
    ```bash
    npm run dev
    ```
+
    - Client: http://localhost:5173 (or 5174 if port is taken)
    - Server: http://localhost:5050
 
 ### Client Environment
+
 - A `.env.local` file has been created for local development
 - It points to the local server at `http://localhost:5050/api`
 - For production, use `.env.production` with your deployed server URL
@@ -36,6 +41,7 @@
 **Client Deployment (GitHub Pages):**
 
 1. Create `.github/workflows/deploy.yml`:
+
    ```yaml
    name: Deploy to GitHub Pages
    on:
@@ -48,7 +54,7 @@
          - uses: actions/checkout@v2
          - uses: actions/setup-node@v2
            with:
-             node-version: '18'
+             node-version: "18"
          - run: npm install
          - run: npm run build --prefix client
          - uses: peaceiris/actions-gh-pages@v3
@@ -64,6 +70,7 @@
    Replace `https://your-deployed-server.com` with your actual server URL
 
 **Server Deployment Options:**
+
 - **Render.com** (Recommended - free tier available)
 - **Railway.app**
 - **Fly.io**
@@ -81,12 +88,14 @@ Vercel automatically handles both client and can proxy to backend:
 ### Environment Variables Summary
 
 **Server (.env or Platform Settings):**
+
 - `PORT`: Server port (default: 5050)
 - `MONGO_URI`: MongoDB connection string
 - `UPLOAD_PASSWORD`: Password for document uploads
 - `MAX_UPLOAD_SIZE_MB`: Max file size (default: 50)
 
 **Client (.env.local or .env.production):**
+
 - `VITE_API_URL`: Backend API URL
   - Local: `http://localhost:5050/api`
   - Production: `https://your-backend-domain.com/api`

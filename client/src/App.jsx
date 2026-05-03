@@ -82,6 +82,13 @@ const DOCUMENTS_DATA = [
     size: 0,
     url: '/CocoSmart/assets/Documents/Smart-Agriculture-Advisory-System-for-Coconut-Plantations-in-Sri-Lanka .pptx',
   },
+  {
+    _id: 'finalpresentation',
+    title: 'Final Presentation',
+    originalName: '25-26J-202 Final Presentation.pdf',
+    size: 0,
+    url: '/CocoSmart/assets/Documents/25-26J-202 Final Presentation.pdf',
+  },
 ]
 
 
@@ -560,20 +567,22 @@ function App() {
           ) : (
             <div className="tech-grid">
               {documents.map((doc) => {
-                const ext = doc.originalName.split('.').pop().toUpperCase()
+                const ext = (doc.originalName.split('.').pop() || 'FILE').toUpperCase()
+                const sizeLabel = doc.size > 0 ? formatSize(doc.size) : 'Project file'
                 return (
-                  <article key={doc._id} className="tech-card">
-                    <div className="doc-icon-wrap">
-                      <span className="doc-ext">{ext}</span>
-                    </div>
+                  <article key={doc._id} className="tech-card docs-card">
                     <p className="tech-name">{doc.title}</p>
-                    <span className="tech-category">{doc.originalName}</span>
+                    <p className="doc-file-name">{doc.originalName}</p>
+                    <div className="doc-meta-row">
+                      <span className="doc-tag">{ext}</span>
+                      <span className="doc-size">{sizeLabel}</span>
+                    </div>
                     <a
                       className="download-btn"
                       href={doc.url}
                       download={doc.originalName}
                     >
-                      ↓ Download
+                      Download
                     </a>
                   </article>
                 )
