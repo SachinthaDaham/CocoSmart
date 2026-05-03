@@ -61,7 +61,29 @@ const DOCUMENTS_DATA = [
     size: 0,
     url: '/CocoSmart/assets/Documents/README_document.md',
   },
+  {
+    _id: 'checklist-readme',
+    title: 'Checklist 1 Readme file',
+    originalName: '25-26j-202 - SMART-AGRICULTURE-PLATFORM .pdf',
+    size: 0,
+    url: '/CocoSmart/assets/Documents/25-26j-202 - SMART-AGRICULTURE-PLATFORM .pdf',
+  },
+  {
+    _id: 'checklist-msplaner',
+    title: 'Checklist 2 MS Planer',
+    originalName: 'CocoSmart - Final Year Research Project.xlsx',
+    size: 0,
+    url: '/CocoSmart/assets/Documents/CocoSmart - Final Year Research Project.xlsx',
+  },
+  {
+    _id: 'msplaner',
+    title: 'MS Planer',
+    originalName: 'Smart-Agriculture-Advisory-System-for-Coconut-Plantations-in-Sri-Lanka .pptx',
+    size: 0,
+    url: '/CocoSmart/assets/Documents/Smart-Agriculture-Advisory-System-for-Coconut-Plantations-in-Sri-Lanka .pptx',
+  },
 ]
+
 
 function App() {
   const [formData, setFormData] = useState({
@@ -153,6 +175,7 @@ function App() {
       name: 'Mr. Uditha Dharmakeerthi',
       role: 'Supervisor',
       org: 'Sri Lanka Institute of Information Technology',
+      linkedin: 'https://www.linkedin.com/in/uditha-dharmakeerthi-84741b17/',
       photo: udithaPhoto,
       photoPosition: 'center 16%',
     },
@@ -160,6 +183,7 @@ function App() {
       name: 'Ms. Dinithi Pandithage',
       role: 'Co-Supervisor',
       org: 'Sri Lanka Institute of Information Technology',
+      linkedin: 'https://www.linkedin.com/in/dinithi-pandithage-8a1163160/',
       photo: dinithiPhoto,
       photoPosition: 'center 16%',
     },
@@ -173,13 +197,15 @@ function App() {
     {
       name: ' W.K.K.I Prasangi',
       role: 'Group Leader',
-      org: 'Undergraduate Researcher',
+      org: 'Group Leader',
+      linkedin: 'https://www.linkedin.com/in/imasha-kodithuwakku-0b4682215/',
       photo: imashaPhoto,
     },
     {
       name: 'W.P.I Niwantha',
       role: 'Team Member',
       org: 'Undergraduate Researcher',
+      linkedin: 'https://www.linkedin.com/in/inoshn/',
       photo: inoshPhoto,
       photoPosition: 'center 18%',
     },
@@ -187,6 +213,7 @@ function App() {
       name: 'W.T.T.S Fernando',
       role: 'Team Member',
       org: 'Undergraduate Researcher',
+      linkedin: 'https://www.linkedin.com/in/tharushi-fernando-a1b285216/',
       photo: tharushiPhoto,
       photoPosition: 'center 18%',
     },
@@ -194,6 +221,7 @@ function App() {
       name: 'T.W.K.S.D Sankalpa',
       role: 'Team Member',
       org: 'Undergraduate Researcher',
+      linkedin: 'https://www.linkedin.com/in/sachinthadaham/',
       photo: dahamPhoto,
       photoPosition: 'center 18%',
     },
@@ -238,7 +266,7 @@ function App() {
       <nav className={`sticky-nav${scrolled ? ' sticky-nav--visible' : ''}`} aria-label="Sticky">
         <div className="brand sticky-brand">
           <img src={logoPhoto} alt="CocoSmart logo" className="brand-logo" loading="lazy" />
-          <span>CocoSmart Research</span>
+          <span>CocoSmart</span>
         </div>
         <div className="nav-links sticky-nav-links">
           {sections.map((section) => (
@@ -252,7 +280,7 @@ function App() {
           <nav className="top-nav" aria-label="Main">
             <div className="brand">
               <img src={logoPhoto} alt="CocoSmart logo" className="brand-logo" loading="lazy" />
-              <span>CocoSmart Research</span>
+              <span>CocoSmart</span>
             </div>
             <button
               className={`hamburger${menuOpen ? ' open' : ''}`}
@@ -520,6 +548,40 @@ function App() {
           </div>
         </section>
 
+        <section id="documents" className="content-section">
+          <h2>Research Documents</h2>
+          <p className="section-kicker">Download project reports, papers and presentations</p>
+
+          {documents.length === 0 ? (
+            <div className="docs-empty">
+              <span className="docs-empty-icon">📂</span>
+              <p>No documents uploaded yet.</p>
+            </div>
+          ) : (
+            <div className="tech-grid">
+              {documents.map((doc) => {
+                const ext = doc.originalName.split('.').pop().toUpperCase()
+                return (
+                  <article key={doc._id} className="tech-card">
+                    <div className="doc-icon-wrap">
+                      <span className="doc-ext">{ext}</span>
+                    </div>
+                    <p className="tech-name">{doc.title}</p>
+                    <span className="tech-category">{doc.originalName}</span>
+                    <a
+                      className="download-btn"
+                      href={doc.url}
+                      download={doc.originalName}
+                    >
+                      ↓ Download
+                    </a>
+                  </article>
+                )
+              })}
+            </div>
+          )}
+        </section>
+
         <section id="team" className="content-section">
           <h2>Meet Our Team</h2>
           <p className="section-kicker">Academic and research collaboration</p>
@@ -540,6 +602,16 @@ function App() {
                   <span className="role-badge">{member.role}</span>
                   <h3>{member.name}</h3>
                   <p className="muted">{member.org}</p>
+                  {member.linkedin && (
+                    <a
+                      href={member.linkedin}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="supervisor-link"
+                    >
+                      LinkedIn Profile
+                    </a>
+                  )}
                 </div>
               </article>
             ))}
@@ -563,6 +635,16 @@ function App() {
                 </div>
                 <h3>{member.name}</h3>
                 <p className="muted">{member.org}</p>
+                {member.linkedin && (
+                  <a
+                    href={member.linkedin}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="student-link"
+                  >
+                    LinkedIn Profile
+                  </a>
+                )}
               </article>
             ))}
           </div>
@@ -598,39 +680,7 @@ function App() {
           </div>
         </section> */}
 
-        <section id="documents" className="content-section">
-          <h2>Research Documents</h2>
-          <p className="section-kicker">Download project reports, papers and presentations</p>
-
-          {documents.length === 0 ? (
-            <div className="docs-empty">
-              <span className="docs-empty-icon">📂</span>
-              <p>No documents uploaded yet.</p>
-            </div>
-          ) : (
-            <div className="tech-grid">
-              {documents.map((doc) => {
-                const ext = doc.originalName.split('.').pop().toUpperCase()
-                return (
-                  <article key={doc._id} className="tech-card">
-                    <div className="doc-icon-wrap">
-                      <span className="doc-ext">{ext}</span>
-                    </div>
-                    <p className="tech-name">{doc.title}</p>
-                    <span className="tech-category">{doc.originalName}</span>
-                    <a
-                      className="download-btn"
-                      href={doc.url}
-                      download={doc.originalName}
-                    >
-                      ↓ Download
-                    </a>
-                  </article>
-                )
-              })}
-            </div>
-          )}
-        </section>
+        
 
         <section id="contact" className="content-section">
           <h2>Get in Touch</h2>

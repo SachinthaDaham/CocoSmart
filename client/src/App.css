@@ -364,6 +364,18 @@ main {
   margin: 0;
 }
 
+.supervisor-link {
+  margin-top: 6px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #2d6c49;
+  text-decoration: none;
+}
+
+.supervisor-link:hover {
+  text-decoration: underline;
+}
+
 .role-badge {
   display: inline-block;
   font-size: 0.72rem;
@@ -443,6 +455,18 @@ main {
   font-size: 0.9rem;
   color: var(--ink-700);
   margin-bottom: 4px;
+}
+
+.student-link {
+  margin-top: 6px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #2d6c49;
+  text-decoration: none;
+}
+
+.student-link:hover {
+  text-decoration: underline;
 }
 
 .gap-grid {
