@@ -788,7 +788,7 @@ function App() {
           <div className="footer-info">
             <h4>Research Team</h4>
             <p>Team CocoSmart</p>
-            <p>Coconut Pest & Disease Surveillance System</p>
+            <p>SMART AGRICULTURE ADVISORY PLATFORM FOR COCONUT PLANTATIONS</p>
             <p>Sri Lanka Institute of Information Technology</p>
           </div>
         </div>
