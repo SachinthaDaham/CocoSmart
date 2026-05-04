@@ -774,13 +774,13 @@ function App() {
           </div>
           <div className="footer-info">
             <h4>Research Team</h4>
-            <p>Team CocoRemedy</p>
+            <p>Team CocoSmart</p>
             <p>Coconut Pest & Disease Surveillance System</p>
             <p>Sri Lanka Institute of Information Technology</p>
           </div>
         </div>
         <div className="footer-bottom">
-          <p>© 2026 Team CocoRemedy. All rights reserved.</p>
+          <p>© 2026 Team CocoSmart. All rights reserved.</p>
           <a href="#home" className="footer-top-btn">↑ Back to top</a>
         </div>
         </div>
