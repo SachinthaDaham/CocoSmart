@@ -10,6 +10,8 @@ import dinithiPhoto from './assets/dinithi.png'
 import roshanPhoto from './assets/roshan.png'
 import logoPhoto from './assets/logo.jpeg'
 
+const documentUrl = (fileName) => new URL(`./assets/Documents/${fileName}`, import.meta.url).href
+
 // Documents from client assets folder
 const DOCUMENTS_DATA = [
   {
@@ -17,77 +19,77 @@ const DOCUMENTS_DATA = [
     title: 'Leaflet Design',
     originalName: 'Leaflet Design - Cocosmart.pdf',
     size: 0,
-    url: '/CocoSmart/assets/Documents/Leaflet Design - Cocosmart.pdf',
+    url: documentUrl('Leaflet Design - Cocosmart.pdf'),
   },
   {
     _id: 'taf-252602-space',
     title: 'TAF 25-26J-202',
     originalName: 'TAF_25-26J-202 .pdf',
     size: 0,
-    url: '/CocoSmart/assets/Documents/TAF_25-26J-202 .pdf',
+    url: documentUrl('TAF_25-26J-202 .pdf'),
   },
   {
     _id: 'smart-agriculture',
     title: 'Smart Agriculture Platform',
     originalName: 'SMART AGRICULTURE PLATFORM FOR COCONUT PLANTATIONS IN SRI LANKA.pdf',
     size: 0,
-    url: '/CocoSmart/assets/Documents/SMART AGRICULTURE PLATFORM FOR COCONUT PLANTATIONS IN SRI LANKA.pdf',
+    url: documentUrl('SMART AGRICULTURE PLATFORM FOR COCONUT PLANTATIONS IN SRI LANKA.pdf'),
   },
   {
     _id: 'progress-1',
     title: 'Progress Presentation 1',
     originalName: 'Progress Presentation 1.pdf',
     size: 0,
-    url: '/CocoSmart/assets/Documents/Progress Presentation 1.pdf',
+    url: documentUrl('Progress Presentation 1.pdf'),
   },
   {
     _id: 'progress-2',
     title: 'Progress Presentation 2',
     originalName: 'Progress Presentation 2.pdf',
     size: 0,
-    url: '/CocoSmart/assets/Documents/Progress Presentation 2.pdf',
+    url: documentUrl('Progress Presentation 2.pdf'),
   },
   {
     _id: 'project-proposal',
     title: 'Project Proposal',
     originalName: 'Project proposal.zip',
     size: 0,
-    url: '/CocoSmart/assets/Documents/Project proposal.zip',
+    url: documentUrl('Project proposal.zip'),
   },
   {
     _id: 'readme',
     title: 'README',
     originalName: 'README_document.md',
     size: 0,
-    url: '/CocoSmart/assets/Documents/README_document.md',
+    url: documentUrl('README_document.md'),
   },
   {
     _id: 'checklist-readme',
     title: 'Checklist 1 Readme file',
     originalName: '25-26j-202 - SMART-AGRICULTURE-PLATFORM .pdf',
     size: 0,
-    url: '/CocoSmart/assets/Documents/25-26j-202 - SMART-AGRICULTURE-PLATFORM .pdf',
+    url: documentUrl('25-26j-202 - SMART-AGRICULTURE-PLATFORM .pdf'),
   },
   {
     _id: 'checklist-msplaner',
     title: 'Checklist 2 MS Planer',
     originalName: 'CocoSmart - Final Year Research Project.xlsx',
     size: 0,
-    url: '/CocoSmart/assets/Documents/CocoSmart - Final Year Research Project.xlsx',
+    url: documentUrl('CocoSmart - Final Year Research Project.xlsx'),
   },
   {
     _id: 'msplaner',
     title: 'MS Planer',
     originalName: 'Smart-Agriculture-Advisory-System-for-Coconut-Plantations-in-Sri-Lanka .pptx',
     size: 0,
-    url: '/CocoSmart/assets/Documents/Smart-Agriculture-Advisory-System-for-Coconut-Plantations-in-Sri-Lanka .pptx',
+    url: documentUrl('Smart-Agriculture-Advisory-System-for-Coconut-Plantations-in-Sri-Lanka .pptx'),
   },
   {
     _id: 'finalpresentation',
     title: 'Final Presentation',
     originalName: '25-26J-202 Final Presentation.pdf',
     size: 0,
-    url: '/CocoSmart/assets/Documents/25-26J-202 Final Presentation.pdf',
+    url: documentUrl('25-26J-202 Final Presentation.pdf'),
   },
 ]
 
@@ -148,7 +150,7 @@ function App() {
       detail: 'Soil, weather, and farm data collected for crop advisory and yield prediction.',
     },
     {
-      value: 'AI',
+      value: 'ML',
       label: 'Smart Farmer Decisions',
       detail: 'Machine learning-based recommendations, alerts, and plantation insights.',
     },
@@ -307,7 +309,7 @@ function App() {
 
           <div className="hero-content">
             <p className="eyebrow">SMART AGRICULTURE ADVISORY PLATFORM FOR COCONUT PLANTATIONS</p>
-            <h1>AI and IoT-powered advisory system for smarter coconut farming</h1>
+            <h1>ML and IoT-powered advisory system for smarter coconut farming</h1>
             <p>
               A research-driven platform for irrigation recommendation, crop advisory, yield prediction, disease detection, farmer notifications, and plantation health scoring.
             </p>
@@ -412,7 +414,7 @@ function App() {
         <section id="problem" className="content-section problem-section">
           <div className="problem-question">
             <span className="problem-label">Research Problem</span>
-            <h2>How can we provide intelligent, real-time advisory support for coconut farmers using AI and IoT?</h2>
+            <h2>How can we provide intelligent, real-time advisory support for coconut farmers using ML and IoT?</h2>
           </div>
           <div className="problem-solution">
             <div className="solution-header">
@@ -503,7 +505,7 @@ function App() {
               { name: 'Flutter', category: 'Mobile App', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/flutter/flutter-original.svg' },
               { name: 'Firebase (Firestore and Realtime)', category: 'Cloud Database', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/firebase/firebase-plain.svg' },
               { name: 'Google Cloud Services', category: 'Cloud Platform', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/googlecloud/googlecloud-original.svg' },
-              { name: 'Keras', category: 'AI / ML', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/keras/keras-original.svg' },
+              { name: 'Keras', category: 'ML', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/keras/keras-original.svg' },
               { name: 'Arduino', category: 'IoT Hardware', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/arduino/arduino-original.svg' },
               { name: 'Python', category: 'Programming Language', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg' },
             ].map((tech) => (
@@ -589,6 +591,17 @@ function App() {
               })}
             </div>
           )}
+
+          <p className="documents-drive-link">
+            More project files:{' '}
+            <a
+              href="https://drive.google.com/drive/folders/1U8u2aaSpM5c_YbUMSbsi-MZMQEyih1t3?usp=sharing"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Open Google Drive folder
+            </a>
+          </p>
         </section>
 
         <section id="team" className="content-section">
@@ -754,7 +767,7 @@ function App() {
               <img src={logoPhoto} alt="CocoSmart logo" className="footer-brand-logo" loading="lazy" />
               <p className="footer-logo">CocoSmart</p>
             </div>
-            <p className="footer-tagline">AI and IoT-powered advisory system for smarter coconut farming in Sri Lanka.</p>
+            <p className="footer-tagline">ML and IoT-powered advisory system for smarter coconut farming in Sri Lanka.</p>
             <p className="footer-email">✉ researchcoco@gmail.com</p>
           </div>
           <div className="footer-nav">

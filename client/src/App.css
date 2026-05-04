@@ -963,6 +963,22 @@ main {
   margin-top: 2px;
 }
 
+.documents-drive-link {
+  margin-top: 18px;
+  font-size: 0.9rem;
+  color: var(--ink-600);
+}
+
+.documents-drive-link a {
+  color: #2d6c49;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.documents-drive-link a:hover {
+  text-decoration: underline;
+}
+
 .tech-card:hover {
   transform: translateY(-4px);
   box-shadow: 0 10px 26px rgba(45, 72, 51, 0.13);
